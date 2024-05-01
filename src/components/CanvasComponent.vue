@@ -54,13 +54,15 @@
 </script>
 
 <template>
-    <foreignObject class="drag-handle-class"
-        :x="x"
-        :y="y"
-        :width="width"
-        :height="height"
-        @mousedown="dragStart"
-    >
-        <div class="w-full h-full bg-red-500 overflow-scroll drag-handle-class"></div>
-    </foreignObject>
+    <svg>
+        <foreignObject class="drag-handle-class"
+                       :x="x"
+                       :y="y"
+                       :width="width"
+                       :height="height"
+                       @mousedown="dragStart"
+        >
+            <div class="w-full h-full bg-red-500 overflow-scroll drag-handle-class"></div>
+        </foreignObject>
+    </svg>
 </template>
