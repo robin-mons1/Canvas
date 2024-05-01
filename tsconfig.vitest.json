@@ -1,0 +1,17 @@
+{
+  "extends": "./tsconfig.app.json",
+  "exclude": [],
+  "compilerOptions": {
+    "module": "esnext",
+    "target": "esnext",
+    "experimentalDecorators": true,
+    "composite": true,
+    "lib": [
+      "esnext",
+      "dom",
+      "dom.iterable",
+      "scripthost"
+    ],
+    "types": ["node", "jsdom"]
+  }
+}

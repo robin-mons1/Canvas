@@ -1,0 +1,83 @@
+{
+    "topics": {
+        "title": "Topics"
+    },
+    "posts": {
+        "title": "Posts"
+    },
+    "settings": {
+        "title": "Settings"
+    },
+    "actions": {
+        "logout": "Sign out",
+        "start-over": "Start over",
+        "next": "Next",
+        "previous": "Previous",
+        "back": "Back",
+        "complete": "Complete",
+        "start": "Start",
+        "lets-go": "Let's go",
+        "continue": "Continue",
+        "reset": "Reset",
+        "update": "Update"
+    },
+    "onboarding": {
+        "start-title": "Onto a great start!",
+        "start-description": "We'd love to get to know you better. Let's answer some questions.",
+        "onboarding-estimation": "This will take around 10min",
+        "phase-one-title": "Getting to know each other",
+        "phase-one-description": "Let's start things off easy. We'll ask you a couple of simple questions to get a grasp of who you are",
+        "phase-one-duration": "This will take around 5 min",
+        "phase-two-title": "Becoming friends",
+        "phase-two-description": "Let's start things off easy. We'll ask you a couple of simple questions to get a grasp of who you are",
+        "phase-two-duration": "This will take around 5 min",
+        "phase-three-title": "Growing together",
+        "phase-three-description": "Let's start things off easy. We'll ask you a couple of simple questions to get a grasp of who you are",
+        "phase-three-duration": "This will take around 5 min",
+        "is-this-correct": "Is this correct"
+    },
+    "persona": {
+        "start-title": "Almost there!",
+        "description": "Next, we’ll generate unique persona. Let us know if this persona resonates with you as a creator, or generate another one.",
+        "generate": "Generating persona...",
+        "wait-message": "Please sit tight! This will take a couple of seconds.",
+        "persona-generation-error": "Something went wrong while generating the persona",
+        "choose-title": "Here’s your creator persona",
+        "interesting-aspects": "Interesting aspects",
+        "content-style": "Content style",
+        "content-niche": "Creator niche",
+        "accept": "This is me!",
+        "retry": "Not really",
+        "back-to-questionnaire": "Back to questionnaire"
+    },
+    "auth": {
+        "password-message": "Must be at least 10 characters with 1 number, 1 letter, and 1 special symbol",
+        "login": "Sign in",
+        "forgot-password": "Forgot password",
+        "create-account-message": "New to Creatormate?",
+        "create-account": "Create account",
+        "sign-up-title": "Sign up for free",
+        "sign-up": "Sign up",
+        "privacy-message": "By clicking Sign up, you agree to our",
+        "already-have-an-account": "Already have a Creatormate account",
+        "email-send-to": "Confirmation email send to",
+        "signed-in-as": "Signed in as",
+        "forgot-password-title": "Reset your password",
+        "change-password-title": "Update your password",
+        "updated-password": "Updated your password"
+    },
+    "fields": {
+        "email": "Email",
+        "password": "Password",
+        "first_name": "First name",
+        "last_name": "Last name"
+    },
+    "general": {
+        "welcome-back": "Welcome back",
+        "welcome": "Welcome",
+        "error": "Error",
+        "and": "and",
+        "privacy-policy": "Privacy policy",
+        "terms-of-use": "Terms of use"
+    }
+}

@@ -1,0 +1,155 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+    box-sizing: border-box;
+}
+
+svg, .drag-handle-class {
+    user-select: none;
+}
+
+:root {
+    --colors-primary: #EC4899;
+    --button-primary-bg: #EC4899;
+    --button-primary-bg_hover: #DB2777;
+    --button-primary-fg: #FFF;
+
+    --button-secondary-bg: #FFF;
+    --button-secondary-bg_hover: #FDF2F8;
+    --button-secondary-fg: #EC4899;
+
+    --text-primary: #111827;
+    --text-secondary: #374151;
+    --text-tertiary: #6B7280;
+    --text-placeholder: #9CA3AF;
+    --text-error-primary: #DC2626;
+    --background: #fff;
+}
+
+html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+.dark {
+    --colors-primary: #EC4899;
+    --button-primary-bg: #EC4899;
+    --button-primary-bg_hover: #DB2777;
+    --button-primary-fg: #FFF;
+
+    --button-secondary-bg: #FFF;
+    --button-secondary-bg_hover: #FDF2F8;
+    --button-secondary-fg: #EC4899;
+
+    --text-primary: #111827;
+    --text-secondary: #374151;
+    --text-tertiary: #6B7280;
+    --text-placeholder: #9CA3AF;
+    --text-error-primary: #DC2626;
+    --background: #fff;
+}
+
+.base {
+    --colors-primary: #EC4899;
+    --button-primary-bg: #EC4899;
+    --button-primary-bg_hover: #DB2777;
+    --button-primary-fg: #FFF;
+
+    --button-secondary-bg: #FFF;
+    --button-secondary-bg_hover: #FDF2F8;
+    --button-secondary-fg: #EC4899;
+
+    --text-primary: #111827;
+    --text-secondary: #374151;
+    --text-tertiary: #6B7280;
+    --text-placeholder: #9CA3AF;
+    --text-error-primary: #DC2626;
+    --background: #fff;
+}
+
+@layer base {
+    html {
+        font-family: "Figtree", sans-serif;
+        font-optical-sizing: auto;
+        font-weight: 300;
+        box-sizing: unset;
+    }
+
+    input:focus, textarea:focus {
+        box-shadow: none !important;
+    }
+
+    .custom-scrollbar {
+        /* Example styles for the container */
+        overflow-y: auto; /* Enable vertical scrollbar when content overflows */
+        scrollbar-width: thin; /* Required for Firefox */
+        scrollbar-color: #FBCFE8; /* Color of the scrollbar thumb and track */
+
+        /* Style the scrollbar */
+
+        &::-webkit-scrollbar {
+            width: 4px; /* Width of the scrollbar */
+        }
+
+        /* Style the scrollbar thumb */
+
+        &::-webkit-scrollbar-thumb {
+            background-color: #FBCFE8; /* Color of the scrollbar thumb */
+            border-radius: 4px; /* Border radius of the thumb */
+        }
+
+        /* Hide scrollbar arrows */
+
+        &::-webkit-scrollbar-button {
+            display: none;
+        }
+    }
+}
+
+@layer components {
+    .active-page {
+        @apply duration-500;
+        @apply bg-skin-active;
+    }
+
+    #app {
+        @apply antialiased;
+    }
+}
+
+.scrollbar-hide {
+    -ms-overflow-style: none /* IE and Edge */ !important;
+    scrollbar-width: none /* Firefox */ !important;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+}
+
+/* Define your transition styles here */
+.up-enter-active, .up-leave-active, .down-enter-active, .down-leave-active {
+    transition: all 0.5s;
+}
+
+.up-enter, .up-leave-to, .down-enter, .down-leave-to {
+    opacity: 0;
+}
+
+.up-enter, .up-leave-to {
+    transform: translateY(-100%);
+}
+
+.down-enter, .down-leave-to {
+    transform: translateY(100%);
+}
+
+.transition-colors {
+    transition-property: background-color;
+}
+
+/* Define transition duration */
+.duration-500 {
+    transition-duration: 0.5s;
+}
