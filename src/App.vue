@@ -1,12 +1,10 @@
 <script setup lang="ts">
-    import {onMounted, ref} from "vue";
     import CreatorCanvas from "@/components/CreatorCanvas.vue";
-    import TodoList from "@/components/TodoList.vue";
+    import CreatorBoard from "@/components/CreatorBoard.vue";
 </script>
 
 
 <template>
-    <CreatorCanvas>
-    </CreatorCanvas>
+    <creator-board></creator-board>
 </template>
 

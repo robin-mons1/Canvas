@@ -22,8 +22,7 @@
     "uuid": "^9.0.1",
     "vue": "^3.4.15",
     "vue-i18n": "^9.2.2",
-    "vue-router": "^4.2.5",
-    "vuedraggable": "^2.24.3"
+    "vue-router": "^4.2.5"
   },
   "devDependencies": {
     "@iconify/vue": "^4.1.1",
