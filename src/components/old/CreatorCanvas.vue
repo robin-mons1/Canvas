@@ -1,5 +1,5 @@
 <script setup lang="ts">
-    import CanvasComponent from "@/components/CanvasComponent.vue";
+    import CanvasComponent from "@/components/old/CanvasComponent.vue";
     import TodoList from "@/components/TodoList.vue";
     import {computed, nextTick, onMounted, ref} from "vue";
     import {Ref} from "@vue/reactivity";

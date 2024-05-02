@@ -1,5 +1,5 @@
 <script setup lang="ts">
-    import CreatorCanvas from "@/components/CreatorCanvas.vue";
+    import CreatorCanvas from "@/components/old/CreatorCanvas.vue";
     import CreatorBoard from "@/components/CreatorBoard.vue";
 </script>
 

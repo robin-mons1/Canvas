@@ -1,28 +1,30 @@
 <script setup lang='ts'>
-    import {computed, nextTick, onMounted, ref} from "vue";
+    import {computed, nextTick, onBeforeMount, onMounted, ref} from "vue";
     import {Ref} from "@vue/reactivity";
     import TodoList from "@/components/TodoList.vue";
     import BoardItem from "@/components/BoardItem.vue";
+    import {Canvas} from "@/canvas/canvas";
+    import {MouseManager} from "@/canvas/MouseManager";
+    import SvgCoordinates from "@/components/SvgCoordinates.vue";
 
     const canvasRef: Ref<SVGElement | null> = ref(null);
+    let canvas = new Canvas();
+    let mouseManager = new MouseManager();
 
-    const viewBoxX = ref(0);
-    const viewBoxY = ref(0);
-    const viewBoxWidth = ref(window.innerWidth);
-    const viewBoxHeight = ref(window.innerHeight);
+    onMounted(async () => {
+        if(canvasRef == null) return;
+
+        await canvas.initialize();
+        canvas.setCanvas(canvasRef as Ref<SVGElement>);
+    });
 
     const canvasWidth = window.innerWidth;
     const canvasHeight = window.innerHeight;
 
     let lastMouseEvent: any = null;
-
-    const offsetX = ref(0);
-    const offsetY = ref(0);
     let scale = ref(1);
 
     const isPanning = ref(false);
-
-    const viewBox = ref(`${viewBoxX.value} ${viewBoxY.value} ${viewBoxWidth.value} ${viewBoxHeight.value}`);
 
     function startPan(e: MouseEvent) {
         isPanning.value = true;
@@ -31,25 +33,20 @@
             document.addEventListener('mouseup', stopPan);
         });
 
-        lastMouseEvent = e;
+        mouseManager.updateMouseEvent(e);
     }
 
     function pan(e: MouseEvent) {
         e.preventDefault();
         e.stopPropagation();
 
-        let mouseDeltaX = e.clientX - lastMouseEvent.clientX;
-        let mouseDeltaY = e.clientY - lastMouseEvent.clientY;
+        let {mouseDeltaX, mouseDeltaY} = mouseManager.getMouseCoards(e, scale.value);
 
-        viewBoxX.value += (-1 * mouseDeltaX) * scale.value;
-        viewBoxY.value += (-1 * mouseDeltaY) * scale.value;
-        updateViewBox();
+        // let mouseDeltaXnew = e.clientX - lastMouseEvent.clientX;
+        // let mouseDeltaYnew = e.clientY - lastMouseEvent.clientY;
 
-        lastMouseEvent = e;
-    }
-
-    function updateViewBox() {
-        viewBox.value = `${viewBoxX.value} ${viewBoxY.value} ${viewBoxWidth.value} ${viewBoxHeight.value}`;
+        canvas.viewBoxX.value += mouseDeltaX;
+        canvas.viewBoxY.value += mouseDeltaY;
     }
 
     function stopPan() {
@@ -76,39 +73,31 @@
         let zoomTopFraction = zoomY / canvasRef.value.clientHeight;
 
         if (zoomingIn) {
-            scaledViewBoxWidth = viewBoxWidth.value / margin;
-            scaledViewBoxHeight = viewBoxHeight.value / margin;
+            scaledViewBoxWidth = canvas.viewBoxWidth.value / margin;
+            scaledViewBoxHeight = canvas.viewBoxHeight.value / margin;
 
-            scaledViewBoxX = viewBoxX.value + ((viewBoxWidth.value - scaledViewBoxWidth) * zoomLeftFraction);
-            scaledViewBoxY = viewBoxY.value + ((viewBoxHeight.value - scaledViewBoxHeight) * zoomTopFraction);
+            scaledViewBoxX = canvas.viewBoxX.value + ((canvas.viewBoxWidth.value - scaledViewBoxWidth) * zoomLeftFraction);
+            scaledViewBoxY = canvas.viewBoxY.value + ((canvas.viewBoxHeight.value - scaledViewBoxHeight) * zoomTopFraction);
         } else {
-            scaledViewBoxWidth = viewBoxWidth.value * margin;
-            scaledViewBoxHeight = viewBoxHeight.value * margin;
+            scaledViewBoxWidth = canvas.viewBoxWidth.value * margin;
+            scaledViewBoxHeight = canvas.viewBoxHeight.value * margin;
 
-            scaledViewBoxX = viewBoxX.value - ((scaledViewBoxWidth - viewBoxWidth.value) * zoomLeftFraction);
-            scaledViewBoxY = viewBoxY.value - ((scaledViewBoxHeight - viewBoxHeight.value) * zoomTopFraction);
+            scaledViewBoxX = canvas.viewBoxX.value - ((scaledViewBoxWidth - canvas.viewBoxWidth.value) * zoomLeftFraction);
+            scaledViewBoxY = canvas.viewBoxY.value - ((scaledViewBoxHeight - canvas.viewBoxHeight.value) * zoomTopFraction);
         }
 
-        viewBoxX.value = scaledViewBoxX;
-        viewBoxY.value = scaledViewBoxY;
-        viewBoxWidth.value = scaledViewBoxWidth;
-        viewBoxHeight.value = scaledViewBoxHeight;
+        canvas.viewBoxX.value = scaledViewBoxX;
+        canvas.viewBoxY.value = scaledViewBoxY;
+        canvas.viewBoxWidth.value = scaledViewBoxWidth;
+        canvas.viewBoxHeight.value = scaledViewBoxHeight;
 
-        updateViewBox();
         scale.value = scaledViewBoxWidth / canvasRef.value.clientWidth;
     }
 </script>
 
 <template>
-    <svg @mousedown="startPan" ref="canvasRef" @wheel="zoom" :width="canvasWidth" :height="canvasHeight" :viewBox="viewBox">
-        <g v-for="i in 39" :key="i">
-            <path stroke="green" stroke-width="0.2" :d="'M ' + ((i + 1) * 50) + ' 0 V 2000'"></path>
-            <text font-size="10" :x="((i - 1) * 50) + 30" y="10">{{ (i + 1) * 50 }}</text>
-        </g>
-        <g v-for="i in 39" :key="'h' + i">
-            <path stroke="green" stroke-width="0.2" :d="'M 0 ' + ((i + 1) * 50) + ' H 2000'"></path>
-            <text font-size="10" :y="((i - 1) * 50) + 45" x="10">{{ (i + 1) * 50 }}</text>
-        </g>
+    <svg @mousedown="startPan" ref="canvasRef" @wheel="zoom" :width="canvasWidth" :height="canvasHeight" :viewBox="canvas.viewBox.value">
+        <SvgCoordinates></SvgCoordinates>
         <rect fill="blue" width="100" height="100" x="500" y="500"></rect>
         <BoardItem :width="300" :x="0" :y="0" :scale="scale" :height="300">
             <TodoList></TodoList>
