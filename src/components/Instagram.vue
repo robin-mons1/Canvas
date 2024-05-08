@@ -1,5 +1,5 @@
 <script setup lang='ts'>
-    const postUrl = "https://www.instagram.com/p/C6T7hdJoF4u/"
+    const postUrl = "https://www.instagram.com/p/C6np32XA8X0/?utm_source=ig_web_copy_link"
     function getUrl() {
         return postUrl + "?utm_source=ig_embed&amp;utm_campaign=loading"
     }

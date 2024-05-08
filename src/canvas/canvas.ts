@@ -34,4 +34,11 @@ export class Canvas {
             viewBoxX: 0, viewBoxY: 0, viewBoxWidth: window.innerWidth, viewBoxHeight: window.innerHeight
         }
     }
+
+    async updateViewBox(viewBoxX: number, viewBoxY: number, viewBoxWidth: number, viewBoxHeight: number) {
+        this.viewBoxX.value = viewBoxX;
+        this.viewBoxY.value = viewBoxY;
+        this.viewBoxWidth.value = viewBoxWidth;
+        this.viewBoxHeight.value = viewBoxHeight;
+    }
 }

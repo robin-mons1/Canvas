@@ -1,15 +1,17 @@
 <script setup lang='ts'>
     import {computed, nextTick, onBeforeMount, onMounted, ref} from "vue";
     import {Ref} from "@vue/reactivity";
-    import TodoList from "@/components/TodoList.vue";
-    import BoardItem from "@/components/BoardItem.vue";
     import {Canvas} from "@/canvas/canvas";
-    import {MouseManager} from "@/canvas/MouseManager";
+    import {MovementManager} from "@/canvas/MovementManager";
     import SvgCoordinates from "@/components/SvgCoordinates.vue";
+    import {useZoomState} from "@/canvas/ZoomState";
+    import BoardItem from "@/components/BoardItem.vue";
+    import TodoList from "@/components/TodoList.vue";
 
     const canvasRef: Ref<SVGElement | null> = ref(null);
     let canvas = new Canvas();
-    let mouseManager = new MouseManager();
+    let mouseManager = new MovementManager(canvas.viewBoxX, canvas.viewBoxY, false);
+    let zoomState = useZoomState();
 
     onMounted(async () => {
         if(canvasRef == null) return;
@@ -22,39 +24,35 @@
     const canvasHeight = window.innerHeight;
 
     let lastMouseEvent: any = null;
-    let scale = ref(1);
 
     const isPanning = ref(false);
 
-    function startPan(e: MouseEvent) {
-        isPanning.value = true;
-        nextTick(() => {
-            document.addEventListener('mousemove', pan);
-            document.addEventListener('mouseup', stopPan);
-        });
-
-        mouseManager.updateMouseEvent(e);
-    }
-
-    function pan(e: MouseEvent) {
-        e.preventDefault();
-        e.stopPropagation();
-
-        let {mouseDeltaX, mouseDeltaY} = mouseManager.getMouseCoards(e, scale.value);
-
-        // let mouseDeltaXnew = e.clientX - lastMouseEvent.clientX;
-        // let mouseDeltaYnew = e.clientY - lastMouseEvent.clientY;
-
-        canvas.viewBoxX.value += mouseDeltaX;
-        canvas.viewBoxY.value += mouseDeltaY;
-    }
-
-    function stopPan() {
-        isPanning.value = false;
-
-        document.removeEventListener('mousemove', pan);
-        document.removeEventListener('mouseup', stopPan);
-    }
+    // function startPan(e: MouseEvent) {
+    //     isPanning.value = true;
+    //     nextTick(() => {
+    //         document.addEventListener('mousemove', pan);
+    //         document.addEventListener('mouseup', stopPan);
+    //     });
+    //
+    //     mouseManager.updateMouseEvent(e);
+    // }
+    //
+    // function pan(e: MouseEvent) {
+    //     e.preventDefault();
+    //     e.stopPropagation();
+    //
+    //     let {mouseDeltaX, mouseDeltaY} = mouseManager.getMouseCoords(e, scale.value);
+    //
+    //     canvas.viewBoxX.value += mouseDeltaX;
+    //     canvas.viewBoxY.value += mouseDeltaY;
+    // }
+    //
+    // function stopPan() {
+    //     isPanning.value = false;
+    //
+    //     document.removeEventListener('mousemove', pan);
+    //     document.removeEventListener('mouseup', stopPan);
+    // }
 
     function zoom(e: WheelEvent) {
         if (!canvasRef.value) return;
@@ -86,21 +84,22 @@
             scaledViewBoxY = canvas.viewBoxY.value - ((scaledViewBoxHeight - canvas.viewBoxHeight.value) * zoomTopFraction);
         }
 
-        canvas.viewBoxX.value = scaledViewBoxX;
-        canvas.viewBoxY.value = scaledViewBoxY;
-        canvas.viewBoxWidth.value = scaledViewBoxWidth;
-        canvas.viewBoxHeight.value = scaledViewBoxHeight;
-
-        scale.value = scaledViewBoxWidth / canvasRef.value.clientWidth;
+        canvas.updateViewBox(scaledViewBoxX, scaledViewBoxY, scaledViewBoxWidth, scaledViewBoxHeight)
+        zoomState.setScale(scaledViewBoxWidth / canvasRef.value.clientWidth);
+        console.log(zoomState.getScale());
     }
 </script>
 
 <template>
-    <svg @mousedown="startPan" ref="canvasRef" @wheel="zoom" :width="canvasWidth" :height="canvasHeight" :viewBox="canvas.viewBox.value">
+    <svg @mousedown="mouseManager.startMoving" ref="canvasRef" @wheel="zoom" :width="canvasWidth" :height="canvasHeight" :viewBox="canvas.viewBox.value">
         <SvgCoordinates></SvgCoordinates>
-        <rect fill="blue" width="100" height="100" x="500" y="500"></rect>
-        <BoardItem :width="300" :x="0" :y="0" :scale="scale" :height="300">
+        <BoardItem :width="300" :x="0" :y="0" :height="300">
             <TodoList></TodoList>
         </BoardItem>
+<!--        <BoardItem :width="300" :x="500" :y="0" :height="300">-->
+<!--            <TodoList></TodoList>-->
+<!--        </BoardItem>-->
+
+        <div>we are just working for creatormate</div>
     </svg>
 </template>
