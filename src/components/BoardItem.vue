@@ -52,7 +52,10 @@
 </script>
 
 <template>
-    <foreignObject ref="objectRef" @mousedown="movementManager.startMoving" :x="currentX" :y="currentY" :width="`${width}px`" :height="`${height}px`">
-        <slot></slot>
-    </foreignObject>
+    <g>
+        <foreignObject ref="objectRef" @mousedown="movementManager.startMoving" :x="currentX" :y="currentY"
+                       :width="`${width}px`" :height="`${height}px`">
+            <slot></slot>
+        </foreignObject>
+    </g>
 </template>
