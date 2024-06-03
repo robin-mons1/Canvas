@@ -16,35 +16,31 @@
         }
     });
 
-    async function connectToHub() {
-        if (!isAuthenticated) {
-            alert("user is not authenticated")
-            return;
-        }
-
-        const token = await getAccessTokenSilently();
-
-        connection = new HubConnectionBuilder().withUrl('http://localhost:5179/myhub', {accessTokenFactory: () => token}).build();
-
-        try {
-            await connection.start();
-
-            connection.on("ReceiveMessage", handleMessage)
-            console.log("Connected to SignalR hub")
-        } catch (err) {
-            console.error(err);
-        }
-
-    }
+    // async function connectToHub() {
+    //     if (!isAuthenticated) {
+    //         alert("user is not authenticated")
+    //         return;
+    //     }
+    //
+    //     const token = await getAccessTokenSilently();
+    //
+    //     connection = new HubConnectionBuilder().withUrl('http://localhost:5179/myhub', {accessTokenFactory: () => token}).build();
+    //
+    //     try {
+    //         await connection.start();
+    //
+    //         connection.on("ReceiveMessage", handleMessage)
+    //         console.log("Connected to SignalR hub")
+    //     } catch (err) {
+    //         console.error(err);
+    //     }
+    //
+    // }
 
     function handleMessage(message: any) {
         console.log(message);
         urls.value.push("https://"+message)
     }
-
-    onMounted(async () => {
-        await connectToHub();
-    })
 
     const {loginWithRedirect, isAuthenticated, getAccessTokenSilently, user} = useAuth0();
 
@@ -86,10 +82,9 @@
     <button @click="signUp">Signup</button>
     <p v-if="isAuthenticated">You did it!</p>
     <p>{{ user }}</p>
-    <button @click="get">get</button>
     <h1 class="text-2xl mt-2">Instagram posts</h1>
     <div class="flex flex-col">
         <Instagram v-for="url of urls" :post-url="url"></Instagram>
     </div>
-<!--        <creator-board></creator-board>-->
+        <creator-board></creator-board>
 </template>

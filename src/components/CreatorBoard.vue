@@ -98,20 +98,20 @@
             <TodoList></TodoList>
         </BoardItem>
         <board-item :width="500" :x="1200" :y="200" :height="500">
-            <Instagram></Instagram>
+            <Instagram post-url="https://www.instagram.com/p/C7ooKP_s_QU/?utm_source=ig_web_copy_link"></Instagram>
         </board-item>
         <board-item :width="500" :x="2300" :y="200" :height="500">
-            <Instagram></Instagram>
+            <Instagram post-url="https://www.instagram.com/p/C7ooKP_s_QU/?utm_source=ig_web_copy_link"></Instagram>
         </board-item>
         <board-item :width="500" :x="200" :y="1200" :height="500">
-            <Instagram></Instagram>
+            <Instagram post-url="https://www.instagram.com/p/C7ooKP_s_QU/?utm_source=ig_web_copy_link"></Instagram>
         </board-item>
         <board-item :width="500" :x="600" :y="600" :height="500">
-            <Instagram></Instagram>
+            <Instagram post-url="https://www.instagram.com/p/C7ooKP_s_QU/?utm_source=ig_web_copy_link"></Instagram>
         </board-item>
-<!--        <BoardItem :width="300" :x="500" :y="0" :height="300">-->
-<!--            <TodoList></TodoList>-->
-<!--        </BoardItem>-->
+        <!--        <BoardItem :width="300" :x="500" :y="0" :height="300">-->
+        <!--            <TodoList></TodoList>-->
+        <!--        </BoardItem>-->
 
         <div>we are just working for creatormate</div>
     </svg>
