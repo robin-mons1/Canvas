@@ -7,6 +7,7 @@
     import {useZoomState} from "@/canvas/ZoomState";
     import BoardItem from "@/components/BoardItem.vue";
     import TodoList from "@/components/TodoList.vue";
+    import Instagram from "@/components/Instagram.vue";
 
     const canvasRef: Ref<SVGElement | null> = ref(null);
     let canvas = new Canvas();
@@ -96,6 +97,18 @@
         <BoardItem :width="300" :x="0" :y="0" :height="300">
             <TodoList></TodoList>
         </BoardItem>
+        <board-item :width="500" :x="1200" :y="200" :height="500">
+            <Instagram></Instagram>
+        </board-item>
+        <board-item :width="500" :x="2300" :y="200" :height="500">
+            <Instagram></Instagram>
+        </board-item>
+        <board-item :width="500" :x="200" :y="1200" :height="500">
+            <Instagram></Instagram>
+        </board-item>
+        <board-item :width="500" :x="600" :y="600" :height="500">
+            <Instagram></Instagram>
+        </board-item>
 <!--        <BoardItem :width="300" :x="500" :y="0" :height="300">-->
 <!--            <TodoList></TodoList>-->
 <!--        </BoardItem>-->
